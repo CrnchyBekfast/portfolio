@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  /* Allow vertical scroll, but hide horizontal scrollbars */
+  overflow-x: hidden;
+  font-family: sans-serif;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-container {
+  width: 100vw; /* Use viewport width to cover the scrollbar gutter */
+  height: 100vh;
+  display: flex;
+  flex-wrap: nowrap; /* Ensure panels stay in a single row */
+  /* Crucially, the container itself has overflow: hidden.
+     GSAP will move the panels inside this container. */
+  overflow: hidden;
+}
+
+.panel {
+  /* Use min-width to ensure panels don't shrink */
+  min-width: 100vw;
+  height: 100vh;
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ff6123;
+}
+
+.aclonica-regular {
+  font-family: "Aclonica", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.the-orange {
+  color: #ff6123;
+  background-color: #ff6123;
+}
