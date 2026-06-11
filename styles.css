@@ -1,3 +1,14 @@
+:root {
+  --bg: #050507;
+  --c-cyan: #00f0ff;
+  --c-magenta: #ff2bd6;
+  --c-lime: #b6ff00;
+  --c-purple: #8b5cf6;
+  --c-orange: #ff6123;
+  --text: #e8e8ea;
+  --text-dim: #9aa0a8;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,40 +16,164 @@
 }
 
 html, body {
-  /* Allow vertical scroll, but hide horizontal scrollbars */
   overflow-x: hidden;
   font-family: sans-serif;
-  /* Hide scrollbar for IE, Edge and Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  background: var(--bg);
+  color: var(--text);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
 body::-webkit-scrollbar {
   display: none;
 }
 
+/* soft vignette over everything */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* ---------- layout: pinned container + sliding track ---------- */
+
 .scroll-container {
-  width: 100vw; /* Use viewport width to cover the scrollbar gutter */
+  width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-wrap: nowrap; /* Ensure panels stay in a single row */
-  /* Crucially, the container itself has overflow: hidden.
-     GSAP will move the panels inside this container. */
   overflow: hidden;
 }
 
+.track {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  height: 100vh;
+  position: relative;
+  will-change: transform;
+}
+
 .panel {
-  /* Use min-width to ensure panels don't shrink */
   min-width: 100vw;
+  width: 100vw;
   height: 100vh;
   display: flex;
-  /* align-items: center;
-  justify-content: center; */
-  font-size: 3rem;
-  font-weight: bold;
-  color: #ff6123;
+  position: relative;
+  z-index: 2;
+  overflow: hidden; /* keeps parallax giant labels from bleeding into neighbors */
 }
+
+/* ---------- fx layers ---------- */
+
+.fx-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.orb-wrap {
+  position: absolute;
+  will-change: transform;
+}
+
+.orb {
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  opacity: 0.3;
+  will-change: transform;
+}
+
+#wave-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+}
+
+#wave-path {
+  fill: none;
+  stroke: url(#wave-grad);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 10 14;
+  filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.7));
+}
+
+#wave-glow-path {
+  fill: none;
+  stroke: url(#wave-grad);
+  stroke-width: 10;
+  opacity: 0.12;
+}
+
+.wave-dot {
+  fill: #fff;
+  filter: drop-shadow(0 0 8px var(--c-cyan));
+}
+
+.wave-halo {
+  fill: none;
+  stroke: var(--c-cyan);
+  stroke-width: 1.5;
+}
+
+.wave-anchor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+}
+
+/* film grain */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/></filter><rect width="100%25" height="100%25" filter="url(%23n)" opacity="0.7"/></svg>');
+}
+
+#cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 500px;
+  margin: -250px 0 0 -250px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 5;
+  mix-blend-mode: screen;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.07) 0%, rgba(255, 43, 214, 0.04) 35%, transparent 65%);
+}
+
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  z-index: 60;
+  transform-origin: left;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--c-cyan), var(--c-magenta), var(--c-lime));
+  box-shadow: 0 0 12px rgba(255, 43, 214, 0.7);
+}
+
+/* ---------- typography ---------- */
 
 .aclonica-regular {
   font-family: "Aclonica", sans-serif;
@@ -53,7 +188,229 @@ body::-webkit-scrollbar {
   font-style: normal;
 }
 
-.the-orange {
-  color: #ff6123;
-  background-color: #ff6123;
+.neon-title {
+  background: linear-gradient(92deg, #ffffff 0%, var(--c-cyan) 30%, var(--c-magenta) 60%, var(--c-lime) 90%, #ffffff 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 18px rgba(0, 240, 255, 0.35));
+  animation: hueflow 8s linear infinite;
+}
+
+@keyframes hueflow {
+  0%   { background-position: 0% 0; }
+  100% { background-position: 220% 0; }
+}
+
+.neon-bar {
+  background: linear-gradient(135deg, var(--c-cyan), var(--c-magenta), var(--c-lime));
+  box-shadow: 0 0 12px rgba(255, 43, 214, 0.6);
+}
+
+.neon-bullet {
+  color: var(--c-magenta);
+  text-shadow: 0 0 14px rgba(255, 43, 214, 0.6);
+}
+
+.neon-icon {
+  transition: color 0.25s, text-shadow 0.25s;
+}
+
+.fa-github.neon-icon:hover    { color: var(--c-cyan);    text-shadow: 0 0 20px var(--c-cyan); }
+.fa-linkedin.neon-icon:hover  { color: var(--c-purple);  text-shadow: 0 0 20px var(--c-purple); }
+.fa-instagram.neon-icon:hover { color: var(--c-magenta); text-shadow: 0 0 20px var(--c-magenta); }
+
+.scroll-arrow {
+  display: inline-block;
+  color: var(--c-cyan);
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.7);
+  animation: nudge 1.4s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(10px); }
+}
+
+/* ---------- hero menu ---------- */
+
+.menu-link h1 {
+  font-size: 2.6rem;
+  color: var(--text);
+  transition: color 0.3s, text-shadow 0.3s, transform 0.3s;
+}
+
+.group:hover .menu-link h1 {
+  color: var(--c-cyan);
+  text-shadow: 0 0 24px rgba(0, 240, 255, 0.5);
+  transform: translateX(6px);
+}
+
+.btn-idle {
+  background: #15171c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn-neon {
+  background: linear-gradient(135deg, var(--c-magenta), var(--c-purple));
+  box-shadow: 0 0 35px -5px var(--c-magenta), 0 0 70px -20px var(--c-purple);
+}
+
+.button-container {
+  transition: box-shadow 0.4s, background 0.4s, transform 0.3s;
+}
+
+.button-container:hover {
+  transform: scale(1.06);
+}
+
+/* ---------- content panels ---------- */
+
+.panel-inner {
+  margin: auto;
+  max-width: 680px;
+  padding: 0 6vw;
+  z-index: 2;
+}
+
+.panel-heading {
+  position: absolute;
+  right: 7%;
+  top: 12%;
+  text-align: right;
+  z-index: 2;
+}
+
+.giant-label {
+  position: absolute;
+  top: 4%;
+  left: 3%;
+  font-size: 17vw;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.06);
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  white-space: nowrap;
+}
+
+.kicker {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--accent, var(--c-cyan));
+  text-shadow: 0 0 12px var(--accent, var(--c-cyan));
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  color: #fff;
+  line-height: 1.12;
+  margin-bottom: 1.4rem;
+}
+
+.accent-word {
+  background: linear-gradient(92deg, var(--c-cyan), var(--c-magenta), var(--c-lime));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 14px rgba(255, 43, 214, 0.45));
+}
+
+.body-text {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  max-width: 46ch;
+}
+
+.email-link {
+  display: inline-block;
+  margin-top: 1.6rem;
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 2px solid var(--c-lime);
+  padding-bottom: 6px;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.email-link:hover {
+  color: var(--c-lime);
+  text-shadow: 0 0 20px rgba(182, 255, 0, 0.6);
+}
+
+.contact-socials {
+  display: flex;
+  gap: 1.6rem;
+  margin-top: 2.2rem;
+  color: var(--text-dim);
+}
+
+/* ---------- project cards ---------- */
+
+.project-card {
+  position: absolute;
+  width: clamp(280px, 27vw, 400px);
+  padding: 1.4rem;
+  border-radius: 18px;
+  background: rgba(10, 12, 16, 0.66);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 24px -8px var(--accent), inset 0 0 30px -22px var(--accent);
+  transition: transform 0.35s, box-shadow 0.35s;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.project-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 0 45px -6px var(--accent), inset 0 0 30px -18px var(--accent);
+}
+
+.card-thumb {
+  height: 150px;
+  border-radius: 12px;
+  border: 1px dashed color-mix(in srgb, var(--accent) 50%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--accent);
+  text-shadow: 0 0 25px var(--accent);
+  background: radial-gradient(120% 120% at 0% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  color: #fff;
+  margin: 1.1rem 0 0.5rem;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.card-tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.card-tags span {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent);
+  color: var(--accent);
 }
