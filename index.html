@@ -103,17 +103,6 @@
                         <div class="w-2/3 relative group">
                             <span class="absolute left-0 bottom-0 w-0.5 h-full neon-bar origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-300 y-animate"></span>
                             <span class="absolute left-0 bottom-0 w-full h-0.5 neon-bar origin-left scale-x-100 group-hover:scale-x-100 transition-transform duration-300 x-animate"></span>
-                            <a href="" id="research-link" class="menu-link"><h1 class="aclonica-regular p-5">Research</h1></a>
-                        </div>
-                    </div>
-
-                    <div class="flex group cursor-pointer">
-                        <div class="">
-                            <i class="fa-solid fa-chevron-down neon-bullet text-3xl p-5 transition-transform duration-300 group-hover:-rotate-90 bullet-animate -rotate-90"></i>
-                        </div>
-                        <div class="w-2/3 relative group">
-                            <span class="absolute left-0 bottom-0 w-0.5 h-full neon-bar origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-300 y-animate"></span>
-                            <span class="absolute left-0 bottom-0 w-full h-0.5 neon-bar origin-left scale-x-100 group-hover:scale-x-100 transition-transform duration-300 x-animate"></span>
                             <a href="" id="contact-link" class="menu-link"><h1 class="aclonica-regular p-5">Contact</h1></a>
                         </div>
                     </div>
@@ -156,18 +145,20 @@
           <h2 class="aclonica-regular section-title">Selected Work</h2>
         </div>
 
-        <article class="project-card wave-node" style="--accent:#00f0ff; left: 8%; top: 10%">
+        <article class="project-card wave-node" style="--accent:#00f0ff; left: 4%; top: 7%">
           <div class="card-thumb aclonica-regular">01</div>
           <h3 class="aclonica-regular card-title">ISRO GeoNLI</h3>
-          <p class="montserrat card-desc">A gold-medal geospatial AI pipeline, held together across a small army of GPUs.</p>
-          <div class="card-tags montserrat"><span>Python</span><span>SAM3</span><span>Qwen</span><span>ReAct</span><span>AWS EC2</span></div>
+          <p class="montserrat card-tagline">A gold-medal geospatial AI pipeline, held together across a small army of GPUs.</p>
+          <p class="montserrat card-desc">The system that won IIT Delhi gold at Inter-IIT Tech Meet 2025 — 1st of 23 IITs. It answers plain-English questions about satellite imagery ("how long is that runway?") by wiring SAM3 segmentation, a Qwen vision-language model, and a tool-use measurement module into one pipeline. The catch: the models wouldn't share a single GPU, so they lived on separate lab workstations behind their own APIs, with a public EC2 layer routing requests inward over the college VPN. I was the integration lead — I built the orchestration layer (a ReAct agent) and the routing, and kept the whole distributed mess coherent.</p>
+          <div class="card-tags montserrat"><span>Python</span><span>PyTorch</span><span>SAM3</span><span>Qwen</span><span>ReAct</span><span>AWS EC2</span></div>
         </article>
 
-        <article class="project-card wave-node" style="--accent:#ff2bd6; left: 52%; top: 42%">
+        <article class="project-card wave-node" style="--accent:#ff2bd6; left: 53%; top: 40%">
           <div class="card-thumb aclonica-regular">02</div>
           <h3 class="aclonica-regular card-title">Context-Aware Keyboard</h3>
-          <p class="montserrat card-desc">An LLM that lives on your phone and finishes your sentences — at 20ms a token.</p>
-          <div class="card-tags montserrat"><span>Gemma</span><span>LoRA</span><span>llama.cpp</span><span>Android</span><span>Kotlin</span></div>
+          <p class="montserrat card-tagline">An LLM that lives on your phone and finishes your sentences — at 20ms a token.</p>
+          <p class="montserrat card-desc">A forked Android keyboard (HeliBoard) running a fine-tuned Gemma 3 1B fully on-device — no server, no round-trip. It reads on-screen context (which app, the conversation so far) through Android's Accessibility APIs and predicts what you'll type next: 52.4% Hit@5, 7.4× the MRR of an n-gram baseline. I trained it on a ~3B-token corpus, quantized to 4-bit GGUF, and bridged it into the keyboard with a llama.cpp JNI layer and async, cancellable inference so it never blocks a keystroke.</p>
+          <div class="card-tags montserrat"><span>Gemma</span><span>Unsloth</span><span>LoRA</span><span>llama.cpp</span><span>Android</span><span>Kotlin</span><span>GGUF</span></div>
         </article>
       </section>
 
@@ -175,18 +166,20 @@
       <section class="panel" id="projects-2">
         <h2 class="giant-label aclonica-regular" data-speed="0.6">MORE</h2>
 
-        <article class="project-card wave-node" style="--accent:#b6ff00; left: 10%; top: 42%">
+        <article class="project-card wave-node" style="--accent:#b6ff00; left: 4%; top: 40%">
           <div class="card-thumb aclonica-regular">03</div>
           <h3 class="aclonica-regular card-title">Concurrent POMCP Solver</h3>
-          <p class="montserrat card-desc">A planner that thinks in parallel — 4.8× faster by letting threads fight over a tree.</p>
-          <div class="card-tags montserrat"><span>C++17</span><span>concurrency</span><span>POMDP</span><span>Monte Carlo</span></div>
+          <p class="montserrat card-tagline">A planner that thinks in parallel — 4.8× faster by letting threads fight over a tree.</p>
+          <p class="montserrat card-desc">A multi-threaded Monte-Carlo tree-search planner in C++17 for decision-making under uncertainty. Root-parallel search with virtual-loss locking on a shared, thread-safe tree, hitting 4.8× throughput on RockSample(7,8) over a serial baseline. Honestly half an excuse to get my hands into the genuinely hard parts — lock contention, atomics, concurrent data structures that don't fall apart under four threads.</p>
+          <div class="card-tags montserrat"><span>C++17</span><span>concurrency</span><span>multithreading</span><span>POMDP</span><span>Monte Carlo</span></div>
         </article>
 
-        <article class="project-card wave-node" style="--accent:#8b5cf6; left: 54%; top: 8%">
+        <article class="project-card wave-node" style="--accent:#8b5cf6; left: 53%; top: 7%">
           <div class="card-thumb aclonica-regular">04</div>
           <h3 class="aclonica-regular card-title">Constitution Tracker</h3>
-          <p class="montserrat card-desc">A 3D globe that watches what democracies are quietly changing in their laws.</p>
-          <div class="card-tags montserrat"><span>React</span><span>Three.js</span><span>Cloudflare</span><span>Firestore</span><span>Gemini</span></div>
+          <p class="montserrat card-tagline">A 3D globe that watches what democracies are quietly changing in their laws.</p>
+          <p class="montserrat card-desc">A full-stack civic platform tracking constitutional bills and amendments, rendered on an interactive Three.js globe. The decision I'm proudest of is invisible: the browser never touches the database. Everything routes through a Cloudflare Worker that holds the only credentials and verifies tokens (RS256/JWKS) on writes, with a daily cron that scrapes government feeds and uses Gemini to score bills by relevance before storing them. (Live ingestion runs for the US right now; more countries are on the roadmap.)</p>
+          <div class="card-tags montserrat"><span>React</span><span>Three.js</span><span>Cloudflare Workers</span><span>Firestore</span><span>Gemini</span></div>
         </article>
       </section>
 
@@ -194,31 +187,34 @@
       <section class="panel" id="projects-3">
         <h2 class="giant-label aclonica-regular" data-speed="0.6">ALSO</h2>
 
-        <article class="project-card wave-node" style="--accent:#ff6123; left: 9%; top: 12%">
+        <article class="project-card wave-node" style="--accent:#ff6123; left: 4%; top: 7%">
           <div class="card-thumb aclonica-regular">05</div>
           <h3 class="aclonica-regular card-title">Tweet Performance Manager</h3>
-          <p class="montserrat card-desc">Predict how a tweet will do before you post it — then let an AI write a better one.</p>
-          <div class="card-tags montserrat"><span>XGBoost</span><span>PyTorch</span><span>FastAPI</span><span>Docker</span><span>GCP</span></div>
+          <p class="montserrat card-tagline">Predict how a tweet will do before you post it — then let an AI write a better one.</p>
+          <p class="montserrat card-desc">An ensemble (XGBoost + neural net) that predicts tweet engagement at R² = 0.85, from ~1,200 features engineered out of raw metadata — TF-IDF on cleaned text, sentiment, inferred brand, temporal signals. Paired with Gemini-based tweet generation and a live-preview frontend, deployed as containerized FastAPI endpoints on GCP Cloud Run.</p>
+          <div class="card-tags montserrat"><span>XGBoost</span><span>PyTorch</span><span>FastAPI</span><span>Docker</span><span>GCP</span><span>React</span></div>
         </article>
 
-        <article class="project-card wave-node" style="--accent:#00f0ff; left: 52%; top: 46%">
+        <article class="project-card wave-node" style="--accent:#00f0ff; left: 53%; top: 40%">
           <div class="card-thumb aclonica-regular">06</div>
           <h3 class="aclonica-regular card-title">Fraud Detection Pipeline</h3>
-          <p class="montserrat card-desc">Catching fraud in a haystack where 99.9% of the hay is honest.</p>
+          <p class="montserrat card-tagline">Catching fraud in a haystack where 99.9% of the hay is honest.</p>
+          <p class="montserrat card-desc">A fraud-risk model on the brutally imbalanced IEEE-CIS dataset. The interesting part is what you optimize for — under that kind of imbalance ROC-AUC flatters you into thinking you've won, so I went with PR-AUC (92.2%) and built features from email domains, device fingerprints, and missing-value patterns. Served behind a FastAPI endpoint.</p>
           <div class="card-tags montserrat"><span>scikit-learn</span><span>Random Forest</span><span>feature engineering</span><span>FastAPI</span></div>
         </article>
       </section>
 
       <!-- ============ PANEL 6 — RESEARCH ============ -->
       <section class="panel" id="research">
-        <h2 class="giant-label aclonica-regular" data-speed="0.6">RESEARCH</h2>
-        <span class="wave-anchor wave-node" style="left: 82%; top: 24%"></span>
-        <div class="panel-inner research-inner">
-          <p class="kicker montserrat" style="--accent:#ff2bd6">ANU Robotics Decision-Making Lab</p>
-          <h2 class="aclonica-regular section-title">LLMs for<br>Robot <span class="accent-word">Planning</span>.</h2>
-          <p class="montserrat body-text">Teaching a language model to synthesize the uncertainty models a robot needs to plan — building on POMDP Coder (Curtis et al., CoRL 2025). 92.9% navigation success on uncertain-navigation benchmarks. Currently extending to a continuous-state quadruped (Unitree Go2) in NVIDIA Isaac Sim.</p>
-          <div class="card-tags montserrat research-tags"><span>POMDP</span><span>LLMs</span><span>robotics</span><span>Isaac Sim</span><span>CoRL 2025</span></div>
-        </div>
+        <h2 class="giant-label aclonica-regular" data-speed="0.6">RND</h2>
+
+        <article class="project-card card-solo wave-node" style="--accent:#ff2bd6; left: 22%; top: 12%">
+          <div class="card-thumb aclonica-regular">ANU</div>
+          <h3 class="aclonica-regular card-title">LLMs for Planning — ANU Robotics</h3>
+          <p class="montserrat card-tagline">Teaching a language model to write the rules a robot plans by.</p>
+          <p class="montserrat card-desc">Ongoing research at the ANU Robotics Decision-Making Lab: can an LLM synthesize the models a robot needs to plan under uncertainty? Building on POMDP Coder (Curtis et al., CoRL 2025), I integrated LLM-generated models with the lab's parallelized VOPP solver — 92.9% navigation success on uncertain-navigation benchmarks — and I'm extending it now to a continuous-state quadruped (Unitree Go2) in NVIDIA Isaac Sim.</p>
+          <div class="card-tags montserrat"><span>POMDP</span><span>LLMs</span><span>robotics</span><span>Isaac Sim</span><span>CoRL 2025</span></div>
+        </article>
       </section>
 
       <!-- ============ PANEL 7 — CONTACT ============ -->

@@ -356,7 +356,7 @@ body::after {
 
 .project-card {
   position: absolute;
-  width: clamp(280px, 27vw, 400px);
+  width: clamp(340px, 43vw, 580px);
   padding: 1.4rem;
   border-radius: 18px;
   background: rgba(10, 12, 16, 0.66);
@@ -368,58 +368,63 @@ body::after {
   cursor: pointer;
 }
 
+.project-card.card-solo {
+  width: clamp(420px, 56vw, 720px);
+}
+
 .project-card:hover {
   transform: translateY(-8px) scale(1.02);
   box-shadow: 0 0 45px -6px var(--accent), inset 0 0 30px -18px var(--accent);
 }
 
 .card-thumb {
-  height: 150px;
+  height: 100px;
   border-radius: 12px;
   border: 1px dashed color-mix(in srgb, var(--accent) 50%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 2.6rem;
   color: var(--accent);
   text-shadow: 0 0 25px var(--accent);
   background: radial-gradient(120% 120% at 0% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 60%);
 }
 
 .card-title {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #fff;
-  margin: 1.1rem 0 0.5rem;
+  margin: 0.9rem 0 0.3rem;
+}
+
+.card-tagline {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--accent);
+  opacity: 0.85;
+  text-shadow: 0 0 10px var(--accent);
+  margin-bottom: 0.7rem;
+  line-height: 1.5;
 }
 
 .card-desc {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   color: var(--text-dim);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .card-tags {
   display: flex;
   gap: 0.5rem;
-  margin-top: 1rem;
+  margin-top: 0.9rem;
   flex-wrap: wrap;
 }
 
 .card-tags span {
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 0.3rem 0.7rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 999px;
   border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent);
   color: var(--accent);
-}
-
-.research-inner {
-  max-width: 740px;
-}
-
-.research-tags {
-  margin-top: 2rem;
-  --accent: #ff2bd6;
 }
