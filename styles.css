@@ -414,3 +414,12 @@ body::after {
   border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent);
   color: var(--accent);
 }
+
+.research-inner {
+  max-width: 740px;
+}
+
+.research-tags {
+  margin-top: 2rem;
+  --accent: #ff2bd6;
+}
